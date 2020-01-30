@@ -1,23 +1,10 @@
 @extends('layouts.dox')
 
+@section('styles')
+    <link rel="stylesheet" href="{{asset('select2/css/select2.min.css')}}">
+    <link rel="stylesheet" href="{{asset('select2/css/select2-bootstrap4.min.css')}}">
+@endsection
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<adddocument-component :empresas="{{$companias}}" :empleados="{{$empleados}}" :tipos="{{$tipos}}"></adddocument-component>
 @endsection

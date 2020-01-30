@@ -1,0 +1,1 @@
+<img src="{{asset('storage/'.$firma)}}" style="max-width:100px;border-radius:5px"   alt="firma">

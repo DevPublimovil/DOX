@@ -22,5 +22,20 @@ Route::group(['prefix' => 'admin'], function () {
 });
 
 
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/flight', 'FlightController');
+
+//rutas para documentos
+Route::resource('/documentos', 'DocumentosController');
+
+
+//rutas para entregas
+Route::resource('/entregas', 'EntregasController');
+Route::get('/apientregas', 'EntregasController@listEntregas')->name('entregas.list');
+
+
+//rutas para exluidos
+Route::resource('/excluidos', 'ExcluidosController');
+Route::get('/apiexcluidos', 'ExcluidosController@listentregados')->name('excluidos.list');

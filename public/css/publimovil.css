@@ -1,0 +1,48 @@
+.btn-publimovil{
+    color: #fff;
+    background-color: #FF3C00;
+    border-color: #FF853F;
+  }
+  
+  .btn-publimovil:hover {
+    color: #fff;
+    background-color: #FF640C;
+    border-color: #FE8743;
+  }
+  
+  .btn-publimovil:focus,
+  .btn-publimovil.focus {
+    color: #fff;
+    background-color: #FF3C00;
+    border-color:#FE8743;
+    box-shadow: 0 0 0 0.2rem rgba(245, 59, 2, 0.966);
+  }
+  
+  .btn-publimovil.disabled,
+  .btn-publimovil:disabled {
+    color: #fff;
+    background-color: #FF3C00;
+    border-color: #dc8034;
+  }
+  
+  .btn-publimovil:not(:disabled):not(.disabled):active,
+  .btn-publimovil:not(:disabled):not(.disabled).active,
+  .show > .btn-publimovil.dropdown-toggle {
+    color: #fff;
+    background-color: #FF3C00;
+    border-color: #dc8034;
+  }
+  
+  .btn-publimovil:not(:disabled):not(.disabled):active:focus,
+  .btn-publimovil:not(:disabled):not(.disabled).active:focus,
+  .show > .btn-publimovil.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(253, 104, 5, 0.986);
+  }
+
+  .bg-publimovil{
+      background-color: #FF3C00;
+  }
+
+  .text-publimovil{
+      color: #FF3C00;
+  }

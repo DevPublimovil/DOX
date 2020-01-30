@@ -7,6 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.toastr = require('toastr');
+import vSelect from 'vue-select'
 
 /**
  * The following block of code may be used to automatically register your
@@ -19,7 +21,9 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('v-select', vSelect)
+Vue.component('search-component', require('./components/SearchComponent.vue').default);
+Vue.component('adddocument-component', require('./components/AdddocumentComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,4 +33,11 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    data:{
+        empleado:''
+    },
+    methods:{
+
+    },
+    
 });

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Documento;
 
 class User extends \TCG\Voyager\Models\User
 {
@@ -16,7 +17,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','telefono','compania_id','avatar','role_id'
     ];
 
     /**
@@ -36,4 +37,17 @@ class User extends \TCG\Voyager\Models\User
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function documentos()
+    {
+        return $this->hasMany(Documento::class);
+    }
+
+    public function entrega(){
+        return $this->belongsTo(Entrega::class);
+    }
+
+    public function compania(){
+        return $this->belongsTo(Compania::class);
+    }
 }
