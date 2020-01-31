@@ -24,6 +24,7 @@ import vSelect from 'vue-select'
 Vue.component('v-select', vSelect)
 Vue.component('search-component', require('./components/SearchComponent.vue').default);
 Vue.component('adddocument-component', require('./components/AdddocumentComponent.vue').default);
+Vue.component('form-component', require('./components/FormComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -34,10 +35,6 @@ Vue.component('adddocument-component', require('./components/AdddocumentComponen
 const app = new Vue({
     el: '#app',
     data:{
-        empleado:''
+        empleado:'',
     },
-    methods:{
-
-    },
-    
 });

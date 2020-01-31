@@ -18,7 +18,7 @@ class DocumentosController extends Controller
     public function index()
     {
        
-        $documentos = Documento::where('estado',0)->with(['user' => function ($query) {
+        $documentos = Documento::where('estado',0)->orWhere('estado',1)->with(['user' => function ($query) {
             $query->where('country_id',Auth::user()->country_id)->with('compania');
         },'tipo'])->orderBy('documentos.created_at','DESC')->get();
 

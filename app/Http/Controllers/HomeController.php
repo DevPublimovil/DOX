@@ -35,4 +35,16 @@ class HomeController extends Controller
 
         return view('home', compact('companias','empleados','tipos'));
     }
+
+    public function arraysSystem(){
+        $companias =  Compania::where('country_id', Auth::user()->country_id)->orderBy('nombre','ASC')->get();
+        $empleados = User::select('id','name','compania_id as compania')->where('role_id',3)->where('country_id',Auth::user()->country_id)->orderBy('name','ASC')->get();
+        $tipos =    Tipo::orderBy('nombre','ASC')->get();
+
+        return response()->json([
+            'companias' => $companias,
+            'empleados' => $empleados,
+            'tipos' => $tipos
+        ]);
+    }
 }

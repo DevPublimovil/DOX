@@ -13,15 +13,28 @@ class FlightController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {  
+    {   $tipo = 'recibo de anda';
+        $detalles = 'HTML Reference
+        CSS Reference
+        JavaScript Reference
+        SQL Reference
+        Python Reference
+        W3.CSS Reference
+        Bootstrap Reference
+        PHP Reference
+        HTML Colors
+        jQuery Reference
+        Java Reference
+        Angular Reference';
+         return view('emails.correspondencia', compact('tipo','detalles'));
         /* $flight = Flight::firstOrCreate(['number'=>560,'status'=>'no-active']); */
         /* $flight = Flight::updateOrCreate(
             ['number' => 570],
             ['status'=>'valio']
         ); */
 
-        $flights = Flight::all();
-        return $flights;
+        /* $flights = Flight::all();
+        return $flights; */
         /* $model = App\Flight::where('legs', '>', 100)
             ->firstOr(['id', 'legs'], function () {
                 // ...

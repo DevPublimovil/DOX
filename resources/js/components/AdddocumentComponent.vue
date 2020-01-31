@@ -3,7 +3,7 @@
         <div class="card" style="min-height:90vh">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-12 col-12">
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-12">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Nueva correspondencia</h3>
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-12">
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-12">
                         <!-- /.row -->
                         <div class="row">
                             <div class="col-12">
@@ -59,7 +59,7 @@
                                 <!-- /.card-header -->
                                 <div class="card-body table-responsive p-0" >
                                 <p class="text-center" v-if="searchDocument.length == 0">No se tiene correspondencia pendiente</p>
-                                <table class="table table-head-fixed text-nowrap text-center" v-else>
+                                <table class="table table-sm text-center" v-else>
                                     <thead>
                                         <tr class="font-weight-bold">
                                             <th>Tipo</th>
@@ -75,12 +75,13 @@
                                             <td>{{documento.tipo.nombre}}</td>
                                             <td>{{documento.user.name}}</td>
                                             <td>{{documento.user.compania.nombre}}</td>
-                                            <td>{{documento.descripcion}}</td>
+                                            <td max-width="100px">{{documento.descripcion}}</td>
                                             <td>{{documento.created_at}}</td>
-                                            <td>
-                                                <div class="btn-group text-center">
+                                            <td width="200px">
+                                                <div class="btn-group">
                                                     <button type="button" class="btn btn-sm btn-danger" v-on:click="deleteDocument(documento)">Eliminar</button>
-                                                    <button type="button"  class="btn btn-sm btn-primary ml-1">Notificar</button>
+                                                    <button type="button"  class="btn btn-sm btn-primary" v-if="documento.estado === 0" v-on:click="notificar(documento)">Notificar</button>
+                                                    <button type="button"  class="btn btn-sm btn-success" disabled v-else>Notificado</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -149,7 +150,7 @@ export default{
                     toastr.success('La correspondencia se agregó correctamente!');
                 }).catch(function (error) {
                     console.log(error);
-                });  
+            });  
         },
         getDocuments(){
             let me = this;
@@ -166,12 +167,22 @@ export default{
                 axios.delete('/documentos/'+document_id
                 ).then(function (response) {
                     me.getDocuments();
-                    toastr.error('¡La correspondencia se eliminó correctamente!');
-                })
-                .catch(function (error) {
-                    console.log(error);
+                    toastr.success('¡La correspondencia se eliminó correctamente!');
+                }).catch(function (error) {
+                    toastr.error('¡Ocurrió un problema!');
                 }); 
             }
+        },
+        notificar(data){
+            let me = this;
+            let empleado = data.user.id
+            axios.get('/sendemails/'+empleado).then( function(response){
+                toastr.info('¡Se ha notificado a !'+ data.user.name+' !');
+                me.getDocuments();
+            }).catch(function (error){
+                toastr.error('¡Ocurrió un problema!');
+                console.log(error);
+            });
         }
     },
 

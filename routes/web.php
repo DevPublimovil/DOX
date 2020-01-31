@@ -26,6 +26,7 @@ Route::group(['prefix' => 'admin'], function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/flight', 'FlightController');
+Route::get('/variablessystem', 'HomeController@arraysSystem')->name('home.variables');
 
 //rutas para documentos
 Route::resource('/documentos', 'DocumentosController');
@@ -39,3 +40,6 @@ Route::get('/apientregas', 'EntregasController@listEntregas')->name('entregas.li
 //rutas para exluidos
 Route::resource('/excluidos', 'ExcluidosController');
 Route::get('/apiexcluidos', 'ExcluidosController@listentregados')->name('excluidos.list');
+
+//rutas para emails
+Route::get('/sendemails/{id}', 'EmailsController@enviar')->name('emails.send');

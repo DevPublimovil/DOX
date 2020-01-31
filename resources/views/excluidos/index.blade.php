@@ -9,7 +9,7 @@
            </div>
            <div class="card-body">
                 <div class="table-responsive mt-4">
-                    <table id="clients_table" class="table table-hover table-bordered text-center table-sm display" style="width:100%">
+                    <table id="excluidos_table" class="table table-hover table-bordered text-center table-sm display" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Nombre</th>
@@ -17,6 +17,7 @@
                                 <th>Descripcion</th>
                                 <th>Fecha recibido</th>
                                 <th>Fecha visto</th>
+                                <th>Accion</th>
                             </tr>
                         </thead>
                     </table>
@@ -29,21 +30,25 @@
 
 @section('scripts')
     <script>
+        @if (Session::has('status'))
+            toastr.success('La correspondencia se eliminó correctamente');
+        @endif
+
         $(document).ready( function () {
-            $('#clients_table').DataTable({
+            $('#excluidos_table').DataTable({
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Entregas",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Excluidos",
                     "infoEmpty": "Mostrando 0 to 0 of 0 Entradas",
-                    "infoFiltered": "(Filtrado de _MAX_ total Entregas)",
+                    "infoFiltered": "(Filtrado de _MAX_ total Excluidos)",
                     "infoPostFix": "",
                     "thousands": ",",
-                    "lengthMenu": "Mostrar _MENU_ Entregas",
+                    "lengthMenu": "Mostrar _MENU_ Excluidos",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscar:",
-                    "zeroRecords": "No se encontro la entrega",
+                    "zeroRecords": "No se encontro la correspondencia",
                     "paginate": {
                         "first": "Primero",
                         "last": "Ultimo",
@@ -61,6 +66,7 @@
                     { "data": "descripcion" },
                     { "data": "created_at" },
                     { "data": "updated_at" },
+                    { "data": "actions" },
                 ]
             });
         } );
