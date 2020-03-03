@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Flight;
+use App\User;
+use App\Documento;
 
 class FlightController extends Controller
 {
@@ -13,20 +15,10 @@ class FlightController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $tipo = 'recibo de anda';
-        $detalles = 'HTML Reference
-        CSS Reference
-        JavaScript Reference
-        SQL Reference
-        Python Reference
-        W3.CSS Reference
-        Bootstrap Reference
-        PHP Reference
-        HTML Colors
-        jQuery Reference
-        Java Reference
-        Angular Reference';
-         return view('emails.correspondencia', compact('tipo','detalles'));
+    {   
+        $empleado = User::find(2)->load('compania');
+        $correspondencias = Documento::where('user_id', $empleado->id)->where('estado',0)->with('tipo')->get();
+         return view('emails.correspondencia', compact('empleado','correspondencias'));
         /* $flight = Flight::firstOrCreate(['number'=>560,'status'=>'no-active']); */
         /* $flight = Flight::updateOrCreate(
             ['number' => 570],

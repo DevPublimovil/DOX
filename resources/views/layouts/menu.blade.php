@@ -1,11 +1,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="{{route('home')}}" class="brand-link">
-    {{ config('app.name', 'Laravel') }}
-    {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-         style="opacity: .8"> --}}
-    {{-- <span class="brand-text font-weight-light">{{ config('app.name', 'Laravel') }}</span> --}}
+  <a href="@if(Auth::user()->hasPermission('browse_home')) {{route('home')}} @else {{route('contactos.index')}} @endif" class="brand-link">
+    <img src="{{asset('images/bg-dox.png')}}" class="img-fluid brand-image" alt="Logo">
   </a>
 
   <!-- Sidebar -->
@@ -23,6 +20,7 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        @if(Auth::user()->hasPermission('browse_home'))
         <li class="nav-item" >
           <a href="{{route('home')}}" class="nav-link {{!Route::is('home') ?: 'activo-link'}}">
             <i class="nav-icon fa fa-home"></i>
@@ -32,6 +30,8 @@
             </p>
           </a>
         </li>
+        @endif
+        @if(Auth::user()->hasPermission('browse_home'))
         <li class="nav-item">
           <a href="{{route('entregas.index')}}" class="nav-link {{!Route::is('entregas.index') ?: 'activo-link'}}">
             <i class="nav-icon fa fa-handshake-o"></i>
@@ -40,6 +40,8 @@
             </p>
           </a>
         </li>
+        @endif
+        @if(Auth::user()->hasPermission('browse_home'))
         <li class="nav-item">
           <a href="{{route('excluidos.index')}}" class="nav-link {{!Route::is('excluidos.index') ?: 'activo-link'}}">
             <i class="nav-icon fa fa-envelope-open"></i>
@@ -48,16 +50,19 @@
             </p>
           </a>
         </li>
+        @endif
+        @if(Auth::user()->hasPermission('browse_directorio'))
         <li class="nav-item">
-          <a href="{{route('home')}}" class="nav-link">
+          <a href="{{route('contactos.index')}}" class="nav-link {{!Route::is('contactos.index') ?: 'activo-link'}}">
             <i class="nav-icon fa fa-phone"></i>
             <p>
               Directorio
             </p>
           </a>
         </li>
+        @endif
         <li class="nav-item">
-          <a href="{{route('home')}}" class="nav-link">
+          <a href="{{route('agendas.index')}}" class="nav-link {{!Route::is('agendas.index') ?: 'activo-link'}}">
             <i class="nav-icon fa fa-calendar-check-o"></i>
             <p>
               Agenda

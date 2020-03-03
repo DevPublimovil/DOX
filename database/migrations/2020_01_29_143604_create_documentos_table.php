@@ -17,12 +17,13 @@ class CreateDocumentosTable extends Migration
             $table->bigIncrements('id');
             $table->string('descripcion',500);
             $table->tinyInteger('estado');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('tipo_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('tipo_id')->nullable();
+            $table->string('firma',255)->nullable();
             $table->timestamps();
 
-            $table->foreign('tipo_id')->references('id')->on('tipos');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('tipo_id')->references('id')->on('tipos')->onDelete('set null')->onUpdate('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null')->onUpdate('cascade');
         });
     }
 

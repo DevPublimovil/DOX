@@ -18,11 +18,15 @@ class DocumentosController extends Controller
     public function index()
     {
        
+       if(Auth::user()->hasPermission('browse_home')){
         $documentos = Documento::where('estado',0)->orWhere('estado',1)->with(['user' => function ($query) {
             $query->where('country_id',Auth::user()->country_id)->with('compania');
         },'tipo'])->orderBy('documentos.created_at','DESC')->get();
 
         return $documentos;
+       }else{
+           abort(403);
+       }
     }
 
     /**
@@ -43,8 +47,12 @@ class DocumentosController extends Controller
      */
     public function store(Request $request)
     {
-        $documento = Documento::firstOrCreate($request->all());
-        return $documento;
+        if(Auth::user()->hasPermission('browse_home')){
+            $documento = Documento::firstOrCreate($request->all());
+            return $documento;
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -89,8 +97,6 @@ class DocumentosController extends Controller
      */
     public function destroy($id)
     {
-        $documento = Documento::find($id);
-        $documento->delete();
-        return $documento;
+        //
     }
 }

@@ -1,5 +1,19 @@
 @extends('layouts.dox')
 
+@section('styles')
+    <style>
+        table > tbody > tr {
+            cursor: pointer;
+        }
+        table > tbody > tr:hover{
+            background-color: #99ccff;
+        }
+        .identrega{
+            display: none;
+        }
+    </style>
+@endsection
+
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-12 col-md-10 col-12">
@@ -9,13 +23,14 @@
            </div>
            <div class="card-body">
                 <div class="table-responsive mt-4">
-                    <table id="clients_table" class="table table-hover table-bordered text-center table-sm display" style="width:100%">
+                    <table id="entregas_table" class="table table-hover table-bordered text-center table-sm display" style="width:100%">
                         <thead>
                             <tr>
+                                <th class="priority-1"></th>
                                 <th>Nombre</th>
                                 <th>Tipo</th>
                                 <th>Descripcion</th>
-                                <th>Fecha</th>
+                                <th>Fecha de entrega</th>
                                 <th>Firma</th>
                             </tr>
                         </thead>
@@ -30,7 +45,7 @@
 @section('scripts')
     <script>
         $(document).ready( function () {
-            $('#clients_table').DataTable({
+            $('#entregas_table').DataTable({
                 language: {
                     "decimal": "",
                     "emptyTable": "No hay información",
@@ -56,13 +71,18 @@
                 "serverSide": true,
                 "ajax": '{{ route('entregas.list') }}',
                 "columns": [
-                    { "data": "user.name" },
-                    { "data": "tipo.nombre" },
-                    { "data": "descripcion" },
-                    { "data": "updated_at" },
-                    { "data": "firma" }
+                    { "data": "id", "visible":true, className: "identrega" },
+                    { "data": "user.name", className: "entrega" },
+                    { "data": "tipo.nombre", className: "entrega" },
+                    { "data": "descripcion", className: "entrega" },
+                    { "data": "updated_at", className: "entrega" },
+                    { "data": "firma", className: "entrega" }
                 ]
             });
+            $('#entregas_table tbody').on('click', '.entrega', function () {
+                var codigo = $(this).siblings('.identrega').html();
+                window.location="{{route('entregas.index')}}"+'/'+codigo;
+            } );
         } );
     </script>
 @endsection

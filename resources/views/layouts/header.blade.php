@@ -5,24 +5,15 @@
     <li class="nav-item">
       <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
     </li>
+    @if (Auth::user()->hasPermission('browse_home'))
     <li class="nav-item d-none d-sm-inline-block">
       <a href="{{route('home')}}" class="nav-link">Home</a>
     </li>
+    @endif
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="#" class="nav-link">Contact</a>
+      <a href="{{route('contactos.index')}}" class="nav-link">Contactos</a>
     </li>
   </ul>
-
-  <div class="form-inline ml-3">
-    <div class="input-group input-group-sm">
-      <input class="form-control form-control-navbar" v-model="empleado" type="search" placeholder="Search" aria-label="Search">
-      <div class="input-group-append">
-        <button class="btn btn-navbar" type="submit">
-          <i class="fa fa-search"></i>
-        </button>
-      </div>
-    </div>
-  </div>
 
   <div class="navbar-nav ml-auto">
     <li class="nav-item dropdown" id="logout">
@@ -41,11 +32,13 @@
               </div>
             </div>
             <div class="divider"></div>
+            @if (Auth::user()->hasPermission('browse_home'))
             <div class="row" style="margin-top:5px">
               <div class="col-12 text-center">
                   <a href="{{route('home')}}" class="btn btn-default btn-block"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
               </div>
             </div>
+            @endif
             <div class="row" style="margin-top:5px">
               <div class="col-12 text-center">
                   <a href="{{ route('logout') }}" style="background-color:#FF3C00;color:#FFFFFF" class="btn btn-block" onclick="event.preventDefault();

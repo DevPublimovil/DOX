@@ -20,6 +20,7 @@
          <link rel="stylesheet" href="{{asset('css/adminlte.min.css')}}">
          <link rel="stylesheet" href="{{asset('css/publimovil.css')}}">
         <link rel="stylesheet" href="{{asset('css/app.css')}}">
+        <link rel="stylesheet" href="{{asset('font-awesome/css/font-awesome.min.css')}}">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
         @yield('styles')
     </head>
@@ -39,6 +40,7 @@
                     </div><!-- /.container-fluid -->
                 </section>
             </div>
+            <modal-detalle></modal-detalle>
         </div>
 
        <script src="{{asset('js/app.js')}}"></script>

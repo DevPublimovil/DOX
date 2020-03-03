@@ -22,7 +22,11 @@ class EntregasController extends Controller
      */
     public function index()
     {
-        return view('entregas.index');
+        if(Auth::user()->hasPermission('browse_home')){
+            return view('entregas.index');
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -54,11 +58,13 @@ class EntregasController extends Controller
      */
     public function show($id)
     {
-        $entrega = Documento::find($id)->with(['user' => function ($query) {
-            $query->where('country_id',Auth::user()->country_id)->with('compania');
-        },'tipo']);
-        return $entrega;
-        return view('entregas.show',compact('entrega'));
+        if(Auth::user()->hasPermission('browse_home')){
+            $documento = Documento::find($id)->load(['tipo','user']);
+
+            return view('entregas.show',compact('documento'));
+        }else{
+            abort(403);
+        }
     }
 
     /**
@@ -96,12 +102,16 @@ class EntregasController extends Controller
     }
 
     public function listEntregas(){
-         return DataTables::of(Documento::where('estado',2)->with(['user' => function ($query) {
+         if(Auth::user()->hasPermission('browse_home')){
+            return DataTables::of(Documento::where('estado',2)->with(['user' => function ($query) {
                 $query->where('country_id',Auth::user()->country_id)->with('compania');
             },'tipo'])->orderBy('documentos.created_at','DESC'))
             ->addColumn('firma', function($row){
                 $firma = $row->firma;
                 return view('partials.firmasentrega', compact('firma'));
             })->make(true);
+         }else{
+             abort(403);
+         }
     }
 }

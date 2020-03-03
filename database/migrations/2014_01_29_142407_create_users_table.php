@@ -22,11 +22,14 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->unsignedBigInteger('country_id')->nullable();
             $table->string('telefono',25)->nullable();
+            $table->string('cargo',255)->nullable();
             $table->unsignedBigInteger('compania_id')->nullable();
+            $table->unsignedBigInteger('departamento_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('country_id')->references('id')->on('countries');
-            $table->foreign('compania_id')->references('id')->on('companias');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('set null');
+            $table->foreign('compania_id')->references('id')->on('companias')->onDelete('set null');
+            $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('set null');
         });
     }
 

@@ -65,7 +65,6 @@
                                             <th>Tipo</th>
                                             <th>Empleado</th>
                                             <th>Compañia</th>
-                                            <th>Descripción</th>
                                             <th>Fecha y hora</th>
                                             <th>Opción</th>
                                         </tr>
@@ -75,13 +74,13 @@
                                             <td>{{documento.tipo.nombre}}</td>
                                             <td>{{documento.user.name}}</td>
                                             <td>{{documento.user.compania.nombre}}</td>
-                                            <td max-width="100px">{{documento.descripcion}}</td>
                                             <td>{{documento.created_at}}</td>
                                             <td width="200px">
                                                 <div class="btn-group">
-                                                    <button type="button" class="btn btn-sm btn-danger" v-on:click="deleteDocument(documento)">Eliminar</button>
+                                                    <button type="button" class="btn btn-sm btn-warning" @click="editDocument(documento)">Editar</button>
                                                     <button type="button"  class="btn btn-sm btn-primary" v-if="documento.estado === 0" v-on:click="notificar(documento)">Notificar</button>
                                                     <button type="button"  class="btn btn-sm btn-success" disabled v-else>Notificado</button>
+                                                    <button type="button" class="btn btn-sm btn-info" v-on:click="viewDocument(documento)">Ver</button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -133,9 +132,6 @@ export default{
     
     methods:{
         reset(){
-            this.selectEmpresa      = 1;
-            this.selectem           = '';
-            this.selectTipo         = 1;
             this.detalles           ='';
         },
         saveCorrespondencia(){
@@ -152,6 +148,10 @@ export default{
                     console.log(error);
             });  
         },
+        viewDocument(data){
+            let document= data;
+            this.$modal.show('modal-detalle',{document:document});
+        },
         getDocuments(){
             let me = this;
             axios.get('/documentos').then(function (response){
@@ -160,18 +160,10 @@ export default{
                 console.log(error);
             });
         },
-        deleteDocument(data){
+        editDocument(data){
             let me = this;
             let document_id = data.id;
-            if (confirm('¿Seguro que deseas borrar esta Correspondencia?')) {
-                axios.delete('/documentos/'+document_id
-                ).then(function (response) {
-                    me.getDocuments();
-                    toastr.success('¡La correspondencia se eliminó correctamente!');
-                }).catch(function (error) {
-                    toastr.error('¡Ocurrió un problema!');
-                }); 
-            }
+            window.location = "/excluidos/"+document_id+"/edit";
         },
         notificar(data){
             let me = this;

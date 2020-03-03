@@ -6,25 +6,25 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Documento;
 use App\User;
+use Auth;
+use PDF;
 
 class EmailsController extends Controller
 {
     public function enviar($id){
-       $empleado = User::find($id);
-
+       $empleado = User::find($id)->load('compania');
+       $correspondencias = Documento::where('user_id', $empleado->id)->where('estado',0)->with('tipo')->get();
        $documentos = Documento::where('user_id', $empleado->id)->where('estado', 0)->update(['estado' => 1]);
-       $correspondencias = Documento::where('user_id', $empleado->id)->get();
 
-       return $correspondencias;
-       /*  Mail::send('emails.notificacion',[
-            'usuario' => $usuario,
-            'empresa' => $empresa, 
-            'pais' => $pais,
-            'contenido' => $contenido], function($mail) use ($asunto){
-                $mail->from(Auth::user()->email, 'Mediacam');
-                $mail->to('mediacam@grupopublimovil.com');
+
+       $asunto = 'Nueva correspondencia';
+
+        Mail::send('emails.correspondencia',[
+            'empleado' => $empleado,
+            'correspondencias' => $correspondencias], function($mail) use ($asunto,$empleado){
+                $mail->from('dox@grupopublimovil.com', 'DOX');
+                $mail->to($empleado->email);
                 $mail->subject($asunto);
-
-        }); */
+        });
     }
 }

@@ -2,14 +2,16 @@
 
 namespace App;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+
 use App\Documento;
 
 class User extends \TCG\Voyager\Models\User
 {
-    use Notifiable;
+    use Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -17,7 +19,7 @@ class User extends \TCG\Voyager\Models\User
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','telefono','compania_id','avatar','role_id'
+        'name', 'email', 'password','telefono','compania_id','avatar','role_id','departamento_id','puesto','country_id'
     ];
 
     /**
@@ -49,5 +51,8 @@ class User extends \TCG\Voyager\Models\User
 
     public function compania(){
         return $this->belongsTo(Compania::class);
+    }
+    public function departamento(){
+        return $this->belongsTo(Departamento::class);
     }
 }

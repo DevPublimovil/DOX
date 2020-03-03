@@ -15,7 +15,17 @@ class CreateAgendasTable extends Migration
     {
         Schema::create('agendas', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title', 255);
+            $table->tinyInteger('allDay');
+            $table->string('backgroundColor',100);
+            $table->string('textColor',10);
+            $table->dateTime('start')->nullable();
+            $table->dateTime('end')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

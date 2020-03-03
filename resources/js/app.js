@@ -8,8 +8,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.toastr = require('toastr');
-import vSelect from 'vue-select'
-
+import vSelect from 'vue-select';
+import VModal from 'vue-js-modal';
+window.moment = require('moment');
+Vue.use(VModal);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -25,6 +27,11 @@ Vue.component('v-select', vSelect)
 Vue.component('search-component', require('./components/SearchComponent.vue').default);
 Vue.component('adddocument-component', require('./components/AdddocumentComponent.vue').default);
 Vue.component('form-component', require('./components/FormComponent.vue').default);
+Vue.component('modal-detalle', require('./components/ModalDetalle.vue').default);
+Vue.component('contactos-component', require('./components/ContactosComponent.vue').default);
+Vue.component('modal-component', require('./components/ModalComponent.vue').default);
+Vue.component('agenda-component', require('./components/AgendaComponent.vue').default);
+Vue.component('modal-evento', require('./components/ModalEvento.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

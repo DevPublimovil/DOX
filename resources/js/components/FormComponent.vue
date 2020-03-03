@@ -4,7 +4,7 @@
             <div class="col-lg-6 col-md-6 col-sm-12 col-12">
                 <div class="card shadow shadow-lg">
                     <div class="card-header">
-                        <h3 class="card-title">Editar documento excluido</h3>
+                        <h3 class="card-title">Editar documento</h3>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -62,7 +62,7 @@ export default{
 
     methods:{
         cancelar(){
-            window.location.href = "/excluidos";
+             window.history.back();
         },
         saveCorrespondencia(){
           axios.put('/excluidos/'+this.documento.id,{
@@ -74,14 +74,12 @@ export default{
                 }).then(({data})=>{
                     if(data.tipo == 'success'){
                         toastr.success(data.mensaje);
-                         window.location.href = "/excluidos";
+                        window.location = "/home";
                     }else{
-                         toastr.error(data.mensaje)
+                        toastr.error(data.mensaje);
                     }
-                   
                 }).catch(function (error) {
-                    toastr.error('Ocurrió un problema!');
-                    console.log(error);
+                    toastr.error('Ocurrió un problema! '+error);
             });  
         },
     },

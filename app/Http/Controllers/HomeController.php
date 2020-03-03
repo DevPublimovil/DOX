@@ -29,11 +29,15 @@ class HomeController extends Controller
      */
     public function index()
     {
+       if(Auth::user()->hasPermission('browse_home')){
         $companias =  Compania::where('country_id', Auth::user()->country_id)->orderBy('nombre','ASC')->get();
         $empleados = User::select('id','name','compania_id as compania')->where('role_id',3)->where('country_id',Auth::user()->country_id)->orderBy('name','ASC')->get();
-        $tipos =    Tipo::orderBy('nombre','ASC')->get();
+        $tipos =    Tipo::orderBy('created_at','DESC')->get();
 
         return view('home', compact('companias','empleados','tipos'));
+       }else{
+        return redirect()->route('contactos.index');
+       }
     }
 
     public function arraysSystem(){
@@ -47,4 +51,5 @@ class HomeController extends Controller
             'tipos' => $tipos
         ]);
     }
+
 }
