@@ -35,7 +35,7 @@
             @if (Auth::user()->hasPermission('browse_home'))
             <div class="row" style="margin-top:5px">
               <div class="col-12 text-center">
-                  <a href="{{route('home')}}" class="btn btn-default btn-block"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
+                  <a href="@if(Auth::user()->role_id == 1) {{route('voyager.dashboard')}} @else {{route('home')}} @endif" class="btn btn-default btn-block"><i class="fa fa-home" aria-hidden="true"></i> @if(Auth::user()->role_id == 1) Admin @else Inicio @endif</a>
               </div>
             </div>
             @endif

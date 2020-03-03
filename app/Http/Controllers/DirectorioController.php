@@ -22,7 +22,7 @@ class DirectorioController extends Controller
     public function index()
     {
         if(Auth::user()->hasPermission('browse_directorio')){
-            $contactos = User::orderBy('name','ASC')->with('compania')->get();
+            $contactos = User::orderBy('name','ASC')->with('compania')->where('country_id',Auth::user()->country_id)->get();
             $companias = Compania::where('country_id',Auth::user()->country_id)->get();
             $departamentos = Departamento::orderBy('nombre','ASC')->get();
             return view('directorio.index', compact('contactos','companias','departamentos'));

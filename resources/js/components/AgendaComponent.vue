@@ -163,7 +163,7 @@ export default {
                 ma.role = response.data.user.role_id
                 ma.user = response.data.user.id
             }).catch(function (error) {
-                toastr.error('Algo salio mal! ' + error)
+                toastr.error('Al parecer aun no se tienen eventos ')
             });
         },
         viewEvent(data){

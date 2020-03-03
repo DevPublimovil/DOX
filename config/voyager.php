@@ -133,9 +133,9 @@ return [
                 'icon_class' => 'voyager-person',
             ],
             'voyager::generic.home' => [
-                'route'        => '/',
+                'route'        => '/home',
                 'icon_class'   => 'voyager-home',
-                'target_blank' => true,
+                'target_blank' => false,
             ],
             'voyager::generic.logout' => [
                 'route'      => 'voyager.logout',
