@@ -1,14 +1,14 @@
 <template id="evento-modal">
   <div name="modal-evento">
-      <modal id="modal-link" name="modal-event" :draggable="true"  :adaptive="true" width="40%" height="80%" @before-open="beforeOpen" style="z-index:2000">
-          <div class="container p-2" style="margin-top:100px">
+      <modal id="modal-link" name="modal-event" :draggable="true" :resizable="true"  :adaptive="true" width="40%" height="80%" @before-open="beforeOpen" style="z-index:2000">
+          <div class="container p-2" >
             <div class="row form-group">
               <div class="col text-center">
                   <h4>{{accion}}</h4>
                   <p v-if="name.length"><small class="text-secondary">Evento creado por: {{name}}</small></p>
               </div>
             </div>
-            <div class="row form-group mt-4" v-if="userevent==user && tipo == 'privada' && accion == 'Crear evento'">
+            <div class="row form-group mt-1" v-if="userevent==user && tipo == 'privada' && accion == 'Crear evento'">
               <div class="col">
                 <label >Colores de etiqueta</label>
                 <ul class="fc-color-picker" id="color-chooser">
@@ -22,7 +22,7 @@
             <div class="row form-group">
               <div class="col">
                   <label for="title">Titulo:</label>
-                  <input type="text" name="title" id="title" class="form-control" v-model="titulo" v-if="tipo == 'privada' && userevent == user && accion == 'Crear evento'">
+                  <input type="text" name="title" id="title" class="form-control form-control-sm" v-model="titulo" v-if="tipo == 'privada' && userevent == user && accion == 'Crear evento'">
                   <p else>{{titulo}}</p>
                   <!--<div class="checkbox mt-4">
                       <label for="alldayCheck">
@@ -37,11 +37,11 @@
                   <div class="row">
                     <div class="col-6">
                         <label for="start">Fecha inicio</label>
-                        <input type="date" name="start" id="start" class="form-control" v-model="start" :disabled="dayCheck">
+                        <input type="date" name="start" id="start" class="form-control form-control-sm" v-model="start" :disabled="dayCheck">
                     </div>
                     <div class="col-6">
                         <label for="timestart">Hora inicio</label>
-                        <input type="time" name="timestart" id="timestart" class="form-control" v-model="timestart" :disabled="dayCheck">
+                        <input type="time" name="timestart" id="timestart" class="form-control form-control-sm" v-model="timestart" :disabled="dayCheck">
                     </div>
                   </div>
               </div>
@@ -51,19 +51,19 @@
                  <div class="row">
                     <div class="col-6">
                         <label for="end">Fecha fin</label>
-                        <input type="date" name="end" id="start" class="form-control" v-model="end" :disabled="dayCheck">
+                        <input type="date" name="end" id="start" class="form-control form-control-sm" v-model="end" :disabled="dayCheck">
                     </div>
                     <div class="col-6">
                         <label for="timeend">Hora fin</label>
-                        <input type="time" name="timeend" id="timeend" class="form-control" v-model="timeend" :disabled="dayCheck">
+                        <input type="time" name="timeend" id="timeend" class="form-control form-control-sm" v-model="timeend" :disabled="dayCheck">
                     </div>
                   </div>
               </div>
             </div>
-            <div class="row form-group mt-4">
+            <div class="row form-group mt-1">
               <div class="col text-center">
-                <button type="button" class="btn btn-danger" v-if="accion=='Actualizar evento'" :disabled="userevent!=user"  @click="deleteEvent(evento)">Eliminar</button>
-                <button type="button" class="btn" :disabled="tipo == 'publica' && userevent!=user && accion == 'Actualizar evento'" :style="{'background-color': backgroundColor, 'color': textcolor}" @click="updateEvent(evento)">Aceptar</button>
+                <button type="button" class="btn btn-sm btn-danger" v-if="accion=='Actualizar evento'" :disabled="userevent!=user"  @click="deleteEvent(evento)">Eliminar</button>
+                <button type="button" class="btn btn-sm" :disabled="tipo == 'publica' && userevent!=user && accion == 'Actualizar evento'" :style="{'background-color': backgroundColor, 'color': textcolor}" @click="updateEvent(evento)">Aceptar</button>
               </div>
             </div>
           </div>

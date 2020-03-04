@@ -105,7 +105,7 @@ class EntregasController extends Controller
          if(Auth::user()->hasPermission('browse_home')){
             return DataTables::of(Documento::where('estado',2)->with(['user' => function ($query) {
                 $query->where('country_id',Auth::user()->country_id)->with('compania');
-            },'tipo'])->orderBy('documentos.created_at','DESC'))
+            },'tipo'])->orderBy('documentos.updated_at','DESC'))
             ->addColumn('firma', function($row){
                 $firma = $row->firma;
                 return view('partials.firmasentrega', compact('firma'));
