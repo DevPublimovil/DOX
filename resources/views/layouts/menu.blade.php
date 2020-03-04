@@ -1,8 +1,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
-  <a href="@if(Auth::user()->hasPermission('browse_home')) {{route('home')}} @else {{route('contactos.index')}} @endif" class="brand-link">
-    <img src="{{asset('images/bg-dox.png')}}" class="img-fluid brand-image" alt="Logo">
+  <a href="@if(Auth::user()->hasPermission('browse_home')) {{route('home')}} @else {{route('contactos.index')}} @endif" class="brand-link ">
+  <span class="font-weight-bold" style="color:#FF502A">&nbsp;&nbsp;DOX</span>
   </a>
 
   <!-- Sidebar -->
@@ -11,9 +11,6 @@
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
         <img src="{{asset('storage/'.Auth::user()->avatar)}}" class="img-circle elevation-2" alt="User Image">
-      </div>
-      <div class="info">
-        <a href="#" class="d-block">{{Auth::user()->name}}</a>
       </div>
     </div>
 
