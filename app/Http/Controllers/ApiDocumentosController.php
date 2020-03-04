@@ -16,7 +16,7 @@ class ApiDocumentosController extends Controller
 {
     public function listdocuments(){
         $documentos = Documento::select('documentos.id','documentos.descripcion','tipos.nombre')
-            ->join('tipos','tipos.id','documentos.tipo_id')->where('estado',1)->orWhere('estado',0)->where('user_id', Auth::user()->id)->get();
+            ->join('tipos','tipos.id','documentos.tipo_id')->where('estado','!=',3)->where('estado','!=',2)->where('user_id', Auth::user()->id)->get();
             
         if(Auth::user()->role_id == 1 || Auth::user()->role_id == 4){
             return response()->json('¡Ud no recibe correspondencia!');
