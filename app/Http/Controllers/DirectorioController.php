@@ -22,7 +22,7 @@ class DirectorioController extends Controller
     public function index()
     {
         if(Auth::user()->hasPermission('browse_directorio')){
-            $contactos = User::orderBy('name','ASC')->with('compania')->where('country_id',Auth::user()->country_id)->get();
+            $contactos = User::orderBy('name','ASC')->with('compania')->where('role_id','!=',1)->where('country_id',Auth::user()->country_id)->get();
             $companias = Compania::where('country_id',Auth::user()->country_id)->get();
             $departamentos = Departamento::orderBy('nombre','ASC')->get();
             return view('directorio.index', compact('contactos','companias','departamentos'));
@@ -53,7 +53,7 @@ class DirectorioController extends Controller
     {
         if(Auth::user()->hasPermission('browse_directorio')){
             $user = User::find($request->user);
-            $contactos = User::where('country_id',Auth::user()->country_id)->with(['compania:id,nombre','departamento:id,nombre'])->orderBy('name', 'ASC')->get();
+            $contactos = User::where('country_id',Auth::user()->country_id)->where('role_id','!=',1)->with(['compania:id,nombre','departamento:id,nombre'])->orderBy('name', 'ASC')->get();
             $filtered = $contactos->except([64,67,76,21,32,12,68,38,46,7,72,27,23,78,47]);
     
             $pdf = PDF::loadView('contactospdf', [
@@ -126,7 +126,7 @@ class DirectorioController extends Controller
     public function listcontactos(){
         if(Auth::user()->hasPermission('browse_directorio')){
             if(Auth::user()->role_id == 4 || Auth::user()->role_id == 1){
-                return DataTables::of(User::where('country_id',Auth::user()->country_id)->with(['compania:id,nombre','departamento:id,nombre'])
+                return DataTables::of(User::where('country_id',Auth::user()->country_id)->where('role_id','!=',1)->with(['compania:id,nombre','departamento:id,nombre'])
                 ->select('users.*'))->addColumn('opcion', function($row){
                     $editUser = route('users.edit', $row->id);
                     $viewUser = route('users.show', $row->id);
@@ -134,7 +134,7 @@ class DirectorioController extends Controller
                     return view('partials.actionsuser', compact('editUser','viewUser'));
                 })->toJson(200);
             }else if(Auth::user()->role_id == 3){
-                $query = User::select('users.*')->where('country_id',Auth::user()->country_id)->with(['compania:id,nombre','departamento:id,nombre'])
+                $query = User::select('users.*')->where('country_id',Auth::user()->country_id)->where('role_id','!=',1)->with(['compania:id,nombre','departamento:id,nombre'])
                 ->get();
 
                 $seleccionados = $query->except([64,67,76,21,32,12,68,38,46,7,72,27,23,78,47]);
