@@ -17,17 +17,14 @@
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        @if(Auth::user()->hasPermission('browse_home'))
         <li class="nav-item" >
-          <a href="{{route('home')}}" class="nav-link {{!Route::is('home') ?: 'activo-link'}}">
+          <a href="@if(Auth::user()->role_id == 3)  {{route('documentos.create')}} @else {{route('home')}} @endif" class="nav-link {{!Route::is('home') ?: 'activo-link'}}">
             <i class="nav-icon fa fa-home"></i>
             <p>
               Inicio
               {{-- <span class="right badge badge-danger"></span> --}}
             </p>
           </a>
-        </li>
-        @endif
         @if(Auth::user()->hasPermission('browse_home'))
         <li class="nav-item">
           <a href="{{route('entregas.index')}}" class="nav-link {{!Route::is('entregas.index') ?: 'activo-link'}}">

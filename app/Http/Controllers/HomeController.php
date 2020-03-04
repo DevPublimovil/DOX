@@ -36,7 +36,7 @@ class HomeController extends Controller
 
         return view('home', compact('companias','empleados','tipos'));
        }else{
-        return redirect()->route('contactos.index');
+        return redirect()->route('documentos.create');
        }
     }
 

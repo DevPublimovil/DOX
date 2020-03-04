@@ -54,7 +54,7 @@
   
           <tr>
             <td align="left" style="font-family: 'Open Sans', sans-serif; font-size: 14px; color: #22292f">
-              <p style="text-align:center">¡Buen día!<br><span style="color:red;font-weight:400">DOX</span> te muestra el resumen de la correspondencia recibida</p>
+              <p style="text-align:center">¡Buen día!<br><span style="color:red;font-weight:400">DOX</span> @if(isset($motivo)) Te informa que han rechazado la siguiente correspondencia: @else te muestra el resumen de la correspondencia recibida @endif</p>
               @if(isset($correspondencias))
                 @foreach ($correspondencias as $key=>$item)
                     <p style="margin:0%;padding:0%"><strong># </strong>{{$key+1}}</p>
@@ -63,6 +63,7 @@
                     <hr>
                 @endforeach
               @else
+                @if(isset($motivo)) <p>Motivo: {{$motivo}}</p>@endif
                 <p style="margin:0%;padding:0%"><strong>Tipo: </strong>{{$documento->tipo->nombre}}</p>
                 <p style="margin:0%;padding:0%"><strong>Detalles: </strong>{{$documento->descripcion}}</p>
                 <hr>
