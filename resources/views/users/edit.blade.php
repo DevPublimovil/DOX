@@ -36,8 +36,8 @@
                         <input type="text" name="telefono" id="telefono" value="{{$user->telefono}}" class="form-control" placeholder="Teléfono">
                     </div>
                     <div class="form-group">
-                        <label for="puesto">Puesto</label>
-                        <input type="text" name="puesto" id="puesto" value="{{$user->puesto}}" class="form-control" placeholder="Puesto">
+                        <label for="cargo">Cargo</label>
+                        <input type="text" name="cargo" id="cargo" value="{{$user->cargo}}" class="form-control" placeholder="cargo">
                     </div>
                     <div class="form-group">
                         <label for="compania_id">Compañia</label>

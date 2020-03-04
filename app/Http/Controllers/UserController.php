@@ -100,7 +100,7 @@ class UserController extends Controller
             $user->update([
                 'name' => $request->name,
                 'email' => $request->email,
-                'puesto' => $request->puesto,
+                'cargo' => $request->cargo,
                 'telefono' => $request->telefono,
                 'compania_id' => $request->compania_id,
                 'departamento_id' => $request->departamento_id
