@@ -37,7 +37,7 @@ class DocumentosController extends Controller
      */
     public function create()
     {
-        $documentos = Documento::where('estado',0)->orWhere('estado',1)->with('tipo')->orderBy('created_at','DESC')->get();
+        $documentos = Documento::where('user_id',Auth::user()->id)->where('estado',0)->orWhere('estado',1)->with('tipo')->orderBy('created_at','DESC')->get();
         return view('empleadoindex', compact('documentos'));
     }
 
@@ -102,7 +102,7 @@ class DocumentosController extends Controller
                 $mail->to($recepcionista->email);
                 $mail->subject($asunto);
             });
-            
+
         $documento->update(['estado' => 3]);
         return back()->with('status','¡La correspondencia ha sido rechazada!');
 
