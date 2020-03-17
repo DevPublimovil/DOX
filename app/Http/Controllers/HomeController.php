@@ -29,12 +29,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $excluidos = Documento::where('estado',3)->count();
        if(Auth::user()->hasPermission('browse_home')){
         $companias =  Compania::where('country_id', Auth::user()->country_id)->orderBy('nombre','ASC')->get();
         $empleados = User::select('id','name','compania_id as compania')->where('role_id',3)->where('country_id',Auth::user()->country_id)->orderBy('name','ASC')->get();
         $tipos =    Tipo::orderBy('created_at','DESC')->get();
 
-        return view('home', compact('companias','empleados','tipos'));
+        return view('home', compact('companias','empleados','tipos','excluidos'));
        }else{
         return redirect()->route('documentos.create');
        }
